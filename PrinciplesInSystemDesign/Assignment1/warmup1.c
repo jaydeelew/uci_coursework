@@ -1,3 +1,4 @@
+// roll dice n times to see their outcomes distributed with astericks
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -10,12 +11,12 @@ void printStars(int s) {
 }
 
 int main() {
-
+    int n = 100;
     int arr[11] = {0};
     int roll_1, roll_2, total;
     srand(time(NULL));
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < n; i++) {
         roll_1 = rand() % 6 + 1;
         roll_2 = rand() % 6 + 1;
         total = roll_1 + roll_2;
@@ -24,7 +25,7 @@ int main() {
     }
 
     for (int i = 0; i <= 10; i++) {
-        printf("%d: %d\t", i + 2, arr[i]);
+        printf("Rolled a %d: ", i + 2);
         printStars(arr[i]);
     }
    

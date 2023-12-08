@@ -1,3 +1,4 @@
+// take any input, tokenize it via a space, return the string with each token on a new line
 #include <stdio.h>
 #include <string.h>
 
@@ -22,8 +23,6 @@ int main() {
     do {
         printf("%s\n", token);
     } while (token = strtok(NULL, " \n"));
-
-    printf("%s\n", str2);
 
     return 0;
 }

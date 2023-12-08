@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+// linked list node
 typedef struct event {
     char *name;
     int start;
@@ -10,10 +11,12 @@ typedef struct event {
     struct event *next;
 } event_t;
 
+// linked list
 typedef struct dayList {
     event_t *head;
 } dayList_t;
 
+// function declarations (a.k.a function prototypes)
 int isNumber(char *str);
 int check_hour(int hour);
 int addEvent(dayList_t *list, char *name, int start, int end); 
@@ -23,7 +26,6 @@ void deleteAll(dayList_t *list);
 
 
 int main() {
-
     char str[255] = {0};
     char *token = NULL, *tokptr = NULL, *name = NULL;
     int start = 0, end = 0, len = 0;
@@ -135,7 +137,8 @@ int addEvent(dayList_t *list, char *name, int start, int end) {
         fprintf(stderr, "Invalid hours error\n");
         free(name);
     }
-    else if (list->head == NULL) { // if there are no events... INSERT HEAD EVENT  
+    // if there are no events... INSERT HEAD EVENT  
+    else if (list->head == NULL) {
         event_t *temp = malloc(sizeof(event_t));
         temp->name = name;
         temp->start = start;
@@ -157,18 +160,21 @@ int addEvent(dayList_t *list, char *name, int start, int end) {
     else {
         event_t *current = list->head; // make head the current node
         while (1) {
-            if (start >= current->end && (current->next == NULL || end <= current->next->start)) { /* if start of new event is >= end of current event
-                                                                                                    * AND (end of new event is <= start of next event
-                                                                                                    * OR next event is NULL)
-                                                                                                    * then INSERT AFTER current
-                                                                                                    */
+            /* if start of new event is >= end of current event
+             * AND (end of new event is <= start of next event
+             * OR next event is NULL)
+             * then INSERT AFTER current
+             */ 
+            if (start >= current->end && (current->next == NULL || end <= current->next->start)) {
                 event_t *temp = malloc(sizeof(event_t));
                 temp->name = name;
                 temp->start = start;
                 temp->end = end;
-                temp->next = current->next; // new event's next-node becomes current node's next-node
+                // new event's next-node becomes current node's next-node
+                temp->next = current->next;
 
-                current->next = temp; // current event's next-node becomes the new event
+                // current event's next-node becomes the new event
+                current->next = temp;
                 break;
             }
             else {
@@ -189,7 +195,8 @@ void deleteEvent(dayList_t *list, char *name) {
     event_t *previousEvent = NULL;
     if (currentEvent == NULL)
         printf("The day does not have any events scheduled\n");
-    else if (strcmp(currentEvent->name, name) == 0) { // then delete head event
+    else if (strcmp(currentEvent->name, name) == 0) {
+                // then delete head event
                 list->head = currentEvent->next;
                 free(currentEvent->name);
                 free(currentEvent);
