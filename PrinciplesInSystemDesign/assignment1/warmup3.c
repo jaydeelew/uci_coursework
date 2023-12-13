@@ -1,4 +1,5 @@
-// add events to a calendar in the command format: add eventName startTime(int) Endtime(int)
+// add events to a calendar in the command format:
+// add eventName startTime(int) Endtime(int)
 // delete events: delete eventName
 // print calendar: printCal
 // quit program: quit

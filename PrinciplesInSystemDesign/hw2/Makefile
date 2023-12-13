@@ -1,13 +1,13 @@
 # Resource to learn Make: https://www.gnu.org/software/make/manual/html_node/index.html
 
-CC:=gcc
-CFLAGS:=-g
+CC := gcc
+CFLAGS := -g
 # To turn off warnings change line above to "CFLAGS:=-g -w"
-BIN_NAME:=53library
-SRC_DIR:=src
-INCLUDE_DIR:=include
-BIN_DIR:=bin
-PRG_SUFFIX:=.out
+BIN_NAME := 53library
+SRC_DIR := src
+INCLUDE_DIR := include
+BIN_DIR := bin
+PRG_SUFFIX := .out
 
 # These are called rules. Rules have targets (what to make), and prerequisites (what needs to exist).
 # Make won't build a target if it's prerequisites haven't changed; it's smart enough not to re-do it's work. The syntax for rules is:

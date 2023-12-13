@@ -2,7 +2,7 @@ CC = gcc
 DFLAGS := -g -DDEBUG
 CFLAGS = -Wall -Werror -Iinclude $(DFLAGS) 
 TEST_SRCS := $(wildcard tests/*.c)
-TESTS := $(patsubst %.c,%,$(TEST_SRCS))
+TESTS := $(patsubst %.c, %, $(TEST_SRCS))
 
 LDFLAGS := ../lib/allocator.o 
 EFLAGS := $(DFLAGS) -I../include

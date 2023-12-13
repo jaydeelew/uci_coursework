@@ -12,8 +12,8 @@
 #include <errno.h>
 
 #define MAX_JOB 5
-#define MAX_ARGC 80 //need to use
-#define MAX_LINE 80 //need to use
+#define MAX_ARGC 80
+#define MAX_LINE 80
 
 typedef struct proc_node {
 	int jobID;
@@ -247,10 +247,12 @@ int main(int argc, char* argv[]) {
 			else if (pid > 0) {
 				// parent
 				proc->pid = pid;
-				if (proc->bg == false) { // if child is to run in the foreground
+				// if child is to run in the foreground
+				if (proc->bg == false) {
 					fgPid = pid;
 
-					waitReturned = waitpid(pid, &exitStatus, WUNTRACED); // hw2 goes into background waiting for child to finish
+					// hw2 goes into background waiting for child to finish
+					waitReturned = waitpid(pid, &exitStatus, WUNTRACED);
 					// printf("main: waitReturned with %d\n", waitReturned);
 					if (WIFSTOPPED(exitStatus)) {
 						proc->status = "stopped";
@@ -259,8 +261,8 @@ int main(int argc, char* argv[]) {
 
 						continue;
 					}
-
-					deleteJobPID_NK(myJobs, waitReturned); // hw2 returns and deletes child job
+					// hw2 returns and deletes child job
+					deleteJobPID_NK(myJobs, waitReturned);
 					if (WIFEXITED(exitStatus)) {
 						int es = WEXITSTATUS(exitStatus);
 						// printf("main: exit status of child was: %d\n", es);
@@ -414,7 +416,8 @@ int addProcess(job_list_t *list, proc_node_t *proc) {
 	return 1;
 }
 
-void deleteProc(proc_node_t *proc) { // frees memory, does not kill process
+// frees memory, does not kill process
+void deleteProc(proc_node_t *proc) {
 	for (int i = 0; i < proc->argc; i++) {
 		free(proc->argv[i]);
 	}
@@ -662,7 +665,8 @@ void setTTYfg(pid_t tofg) {
 	before = tcgetpgrp(0);
 	signal (SIGTTOU, SIG_IGN);
 	while (1) {
-		tcsetpgrp(0, tofg); // set terminal foreground process group to process group of pid 
+		// set terminal foreground process group to process group of pid 
+		tcsetpgrp(0, tofg);
 		after = tcgetpgrp(0);
 		if (after != before)
 			break;

@@ -1,6 +1,3 @@
-// jack lewis
-// 26197631
-
 #include <stdio.h>
 #include <string.h>
 

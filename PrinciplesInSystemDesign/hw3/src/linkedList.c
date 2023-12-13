@@ -139,7 +139,6 @@ void* removeRear(List_t* list) {
     return retval;
 }
 
-/* indexed by 0 */
 void* removeByIndex(List_t* list, int index) {
     if (list->length <= index) {
         return NULL;

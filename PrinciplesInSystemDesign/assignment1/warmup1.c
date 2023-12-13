@@ -11,12 +11,17 @@ void printStars(int s) {
 }
 
 int main() {
-    int n = 100;
+    char str[128];
+    printf("Enter the number times to roll the dice: ");
+    fgets(str, 255, stdin);
+    printf("\n");
+
     int arr[11] = {0};
     int roll_1, roll_2, total;
     srand(time(NULL));
+    int rolls = atoi(str);
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < rolls; i++) {
         roll_1 = rand() % 6 + 1;
         roll_2 = rand() % 6 + 1;
         total = roll_1 + roll_2;
