@@ -11,9 +11,12 @@ class WaitlistEntry {
 }
 
 public class RCB {
-    public int inventory; // the max number of resources ever available 
-    public int state; // the current level of resources available
-    public LinkedList<WaitlistEntry> waitlist; // indices and units requested of processes blocked on this resource
+    // the max number of resources ever available 
+    public int inventory;
+    // the current level of resources available
+    public int state;
+    // indices and units requested of processes blocked on this resource
+    public LinkedList<WaitlistEntry> waitlist;
     
     public RCB(int inventory, int state) {
         this.inventory = inventory;
@@ -47,7 +50,8 @@ public class RCB {
             return waitlist.peekFirst().requested;
         }
         else {
-            return 99; // large number to prevent entering while loop in release()
+            // large number to prevent entering while loop in release()
+            return 99;
         }
     }
 
@@ -55,7 +59,8 @@ public class RCB {
         return inventory;
     }
 
-    public String toString(){ // overidden toString()
+    // overidden toString()
+    public String toString(){
         return "\ninventory: " + this.inventory + 
                "\nstate: " + this.state +
                "\nchildren: " + this.waitlist.toString();

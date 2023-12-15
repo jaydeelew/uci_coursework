@@ -27,13 +27,15 @@ public class Driver {
         }
         catch (FileNotFoundException e) {
             System.out.println("input-dp.txt not found, place it in same folder as program and try again");
-            initscan.close(); // this is needed if initscan succeeds and inputscan fails
+            // this is needed if initscan succeeds and inputscan fails
+            initscan.close();
             return;
         }
         System.out.println("input-dp.txt found");
 
         PrintStream systemoutsaved = System.out;
-        PrintStream outfile = new PrintStream(new File("output-dp.txt")); // handle exception here?
+        // handle exception here?
+        PrintStream outfile = new PrintStream(new File("output-dp.txt"));
         System.setOut(outfile);
 
         VMManager vmm = new VMManager();

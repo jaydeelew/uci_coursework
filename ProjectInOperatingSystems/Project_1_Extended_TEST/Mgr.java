@@ -69,8 +69,10 @@ public class Mgr {
         rcbarr[2] = new RCB(2, 2);
         rcbarr[3] = new RCB(3, 3);
         readylist = new RL(); 
-        pcbarr[0] = new PCB(-1, 0); // process 0 does not have a parent (so, -1), and priority is 0
-        readylist.enqueue(0, 0); // process 0 to priority list 0
+        // process 0 does not have a parent (so, -1), and priority is 0
+        pcbarr[0] = new PCB(-1, 0);
+        // process 0 to priority list 0
+        readylist.enqueue(0, 0);
         scheduler();
     }
 
@@ -80,7 +82,8 @@ public class Mgr {
             return;
         }
         int runningproc = readylist.front();
-        int index = pcbopenslot(); // find first opening in pcb array
+        // find first opening in pcb array
+        int index = pcbopenslot();
         if (index == -1) {
             System.out.println("* no open PCB available");
             return;
@@ -90,8 +93,10 @@ public class Mgr {
             return;
         }
         pcbarr[index] = new PCB(runningproc, priority);
-        pcbarr[runningproc].children.add(index); // add index of this process to parent's children list
-        readylist.enqueue(priority, index); // add index of this process to ready list
+        // add index of this process to parent's children list
+        pcbarr[runningproc].children.add(index);
+        // add index of this process to ready list
+        readylist.enqueue(priority, index);
         System.out.println("* process " + index + " created");
         scheduler();
     }
@@ -147,14 +152,20 @@ public class Mgr {
             System.out.println("* request units + units held cannot exceed initial resource qty");
             return;
         }
-        if (rcbarr[r].state >= k) { // if resource amount is available
-            rcbarr[r].state -= k; // reduce amount of resource by k
-            pcbarr[runningproc].addresource(r, k); // add resource and amount to process's list of resources
+        // if resource amount is available
+        if (rcbarr[r].state >= k) {
+            // reduce amount of resource by k
+            rcbarr[r].state -= k;
+            // add resource and amount to process's list of resources
+            pcbarr[runningproc].addresource(r, k);
             System.out.println("* resource " + r + " allocated");
         }
-        else { // if resource amount not available
-            pcbarr[runningproc].state = 0; // set process to blocked
-            rcbarr[r].addtowaitlist(readylist.dequeue(), k); // remove running process from readylist and add pid to resource's waitlist
+        // if resource amount not available
+        else {
+            // set process to blocked
+            pcbarr[runningproc].state = 0;
+            // remove running process from readylist and add pid to resource's waitlist
+            rcbarr[r].addtowaitlist(readylist.dequeue(), k);
             System.out.println("* process " + runningproc + " blocked");
         }
         scheduler();
@@ -174,7 +185,8 @@ public class Mgr {
             }
             if (k <= pcbarr[runningproc].resourceamountheld(r)) {
                 pcbarr[runningproc].withdrawresource(r, k);
-                rcbarr[r].state += k; // add released amount back to rcb
+                // add released amount back to rcb
+                rcbarr[r].state += k;
             }
             else {
                 System.out.println("* requested amount exceeds quantity held by process");
@@ -183,7 +195,8 @@ public class Mgr {
         }
         // else if releasing units from destroyed processes
         else {
-            rcbarr[r].state += k; // add amount k to resource r in corresponding rcb
+            // add amount k to resource r in corresponding rcb
+            rcbarr[r].state += k;
         } 
         // move as many processes from waitlist to ready list as possible
         if (rcbarr[r].waitlist.isEmpty()) { // if no process is waiting for this resource
@@ -195,9 +208,12 @@ public class Mgr {
                 int headofwaitlist = rcbarr[r].removefromwaitlist();
                 rcbarr[r].state -= qtyrequested;
                 int headofwaitlistpriority = processpriority(headofwaitlist);
-                readylist.enqueue(headofwaitlistpriority, headofwaitlist); // add to end of ready list (if priority level empty, becomes first)
-                pcbarr[headofwaitlist].state = 1; // waitlisted process now ready
-                pcbarr[headofwaitlist].addresource(r, qtyrequested); // add r and requested to previouly waitlisted process's list of resources
+                // add to end of ready list (if priority level empty, becomes first)
+                readylist.enqueue(headofwaitlistpriority, headofwaitlist);
+                // waitlisted process now ready
+                pcbarr[headofwaitlist].state = 1;
+                // add r and requested to previouly waitlisted process's list of resources
+                pcbarr[headofwaitlist].addresource(r, qtyrequested);
             }
         }
         System.out.println("* resource " + r + " released");
@@ -209,7 +225,8 @@ public class Mgr {
     }
 
     public void timeout() {
-        readylist.enqueue(readylist.frontpriority(), readylist.dequeue()); // move running process from head of ready-list to tail
+        // move running process from head of ready-list to tail
+        readylist.enqueue(readylist.frontpriority(), readylist.dequeue());
         scheduler();
     }
 

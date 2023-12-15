@@ -108,7 +108,8 @@ public class RL {
         }
     }
 
-    public String toString() { // overidden toString()
+    // overidden toString()
+    public String toString() {
         return "\nPriority 2: " + this.priority2 +
         "\nPriority 1: " + this.priority1 +
         "\nPriority 0: " + this.priority0; 

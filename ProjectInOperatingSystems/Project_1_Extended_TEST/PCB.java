@@ -11,11 +11,16 @@ class ResourceEntry {
 }
 
 public class PCB {
-    public int priority; // set to 0, 1, or 2
-    public int state; // ready-1 or blocked-0
-    public int parent; // index of parent process
-    public LinkedList<Integer> children; // indices of child processes
-    public LinkedList<ResourceEntry> resources; // indices of resources and number of units amount
+    // set to 0, 1, or 2
+    public int priority;
+    // ready-1 or blocked-0
+    public int state;
+    // index of parent process
+    public int parent;
+    // indices of child processes
+    public LinkedList<Integer> children;
+    // indices of resources and number of units amount
+    public LinkedList<ResourceEntry> resources;
     
     public PCB(int parent, int priority) {
         this.priority = priority;
@@ -73,7 +78,8 @@ public class PCB {
         }
     }
 
-    public String toString() { // overidden toString()
+    // overidden toString()
+    public String toString() {
         return "\npriority: " + this.priority + 
                 "\nstate: " + this.state + 
                 "\nparent: " + this.parent +
